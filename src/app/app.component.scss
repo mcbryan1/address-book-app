@@ -1,0 +1,31 @@
+.example-spacer {
+  flex: 1 1 auto;
+}
+
+.address-body {
+  margin: 2rem 1rem;
+
+  .card-container {
+    flex-wrap: wrap;
+    display: flex;
+  }
+  mat-card {
+    padding: 0rem 2rem;
+    width: 25rem;
+  }
+  mat-form-field{
+    width: 100%;
+  }
+}
+.actions {
+  display: flex;
+  flex-direction: column;
+  button {
+    flex: 1;
+  }
+}
+.icon-content-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+}
