@@ -3,8 +3,9 @@
 }
 
 .address-body {
-  margin: 2rem 1rem;
-
+  margin: 2rem 5rem;
+  display: flex;
+  flex-direction: column;
   .card-container {
     flex-wrap: wrap;
     display: flex;
@@ -15,6 +16,10 @@
   }
   mat-form-field{
     width: 100%;
+  }
+  button {
+    margin-bottom: 1rem;
+    align-self: flex-end;
   }
 }
 .actions {

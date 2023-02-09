@@ -23,4 +23,9 @@ export class AddressService {
   deleteAddress(id: number): Observable<any>{
     return this._http.delete(`http://localhost:3000/addresses/${id}`)
   }
+
+  // update address
+  updateAddress(id: number, data: any): Observable<any>{
+    return this._http.put(`http://localhost:3000/addresses/${id}`, data)
+  }
 }

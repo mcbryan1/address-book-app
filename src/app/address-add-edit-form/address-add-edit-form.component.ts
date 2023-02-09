@@ -1,6 +1,6 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
-import { MatDialogRef } from '@angular/material/dialog';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { AddressService } from '../services/address.service';
 
 @Component({
@@ -8,7 +8,7 @@ import { AddressService } from '../services/address.service';
   templateUrl: './address-add-edit-form.component.html',
   styleUrls: ['./address-add-edit-form.component.scss'],
 })
-export class AddressAddEditFormComponent {
+export class AddressAddEditFormComponent implements OnInit{
   // Define the form
   addressForm: FormGroup;
 
@@ -16,7 +16,8 @@ export class AddressAddEditFormComponent {
   constructor(
     private _fb: FormBuilder,
     private _addressService: AddressService,
-    private _dialog: MatDialogRef<AddressAddEditFormComponent>
+    private _dialog: MatDialogRef<AddressAddEditFormComponent>,
+    @Inject(MAT_DIALOG_DATA) public data : any
   ) {
     this.addressForm = this._fb.group({
       firstName: '',
@@ -25,19 +26,33 @@ export class AddressAddEditFormComponent {
     });
   }
 
+  ngOnInit(): void {
+      this.addressForm.patchValue(this.data)
+  }
+
   //OnSubmit Function
   onSubmit() {
     const firstName = this.addressForm.value.firstName;
     const lastName = this.addressForm.value.lastName;
     const contact = this.addressForm.value.contact;
     if (firstName.length > 0 && lastName.length > 0 && contact.length > 0) {
-      this._addressService.addAddress(this.addressForm.value).subscribe({
-        next: (value: any) => {
-          alert('Employee Added Successfully');
-          this._dialog.close(true);
-        },
-        error: console.log
-      });
+      if (this.data){
+        this._addressService.updateAddress(this.data.id,this.addressForm.value).subscribe({
+          next: (value: any) => {
+            alert('Employee Updated Successfully');
+            this._dialog.close(true);
+          },
+          error: console.log
+        });
+      }else{
+        this._addressService.addAddress(this.addressForm.value).subscribe({
+          next: (value: any) => {
+            alert('Employee Added Successfully');
+            this._dialog.close(true);
+          },
+          error: console.log
+        });
+      }
     } else{
       alert('Field Cannot be empty')
     }

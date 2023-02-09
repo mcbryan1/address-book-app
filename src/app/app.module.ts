@@ -19,12 +19,16 @@ import { MatSortModule } from '@angular/material/sort';
 
 //Component imports
 import { AddressAddEditFormComponent } from './address-add-edit-form/address-add-edit-form.component';
+import { HomeComponent } from './home/home.component';
+import { CardsComponent } from './cards/cards.component';
 
 
 @NgModule({
   declarations: [
     AppComponent,
-    AddressAddEditFormComponent
+    AddressAddEditFormComponent,
+    HomeComponent,
+    CardsComponent
   ],
   imports: [
     BrowserModule,
