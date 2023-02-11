@@ -18,15 +18,21 @@
   },
   "addresses": [
     {
-      "firstName": "Sack",
-      "lastName": "Sess",
-      "contact": "24356",
+      "first_name": "asdsdsddsfsdf",
+      "last_name": "sdsadsd",
+      "phone_number": "1e212",
+      "id": 1
+    },
+    {
+      "first_name": "asdfg",
+      "last_name": "dsf",
+      "phone_number": "34343",
       "id": 2
     },
     {
-      "firstName": "Sammy",
-      "lastName": "Tuga",
-      "contact": "23452345",
+      "first_name": "sdsadssdsadsd",
+      "last_name": "sdasdassdasd",
+      "phone_number": "3424324sdasd",
       "id": 3
     }
   ]

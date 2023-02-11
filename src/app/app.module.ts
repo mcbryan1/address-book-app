@@ -16,19 +16,18 @@ import { HttpClientModule } from '@angular/common/http';
 import { MatTableModule } from '@angular/material/table';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { MatSortModule } from '@angular/material/sort';
+import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 //Component imports
 import { AddressAddEditFormComponent } from './address-add-edit-form/address-add-edit-form.component';
-import { HomeComponent } from './home/home.component';
-import { CardsComponent } from './cards/cards.component';
+
 
 
 @NgModule({
   declarations: [
     AppComponent,
     AddressAddEditFormComponent,
-    HomeComponent,
-    CardsComponent
+    
   ],
   imports: [
     BrowserModule,
@@ -44,7 +43,8 @@ import { CardsComponent } from './cards/cards.component';
     HttpClientModule,
     MatTableModule,
     MatPaginatorModule,
-    MatSortModule
+    MatSortModule,
+    MatSnackBarModule
   ],
   providers: [],
   bootstrap: [AppComponent]

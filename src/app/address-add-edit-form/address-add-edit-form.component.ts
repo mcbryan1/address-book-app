@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { FormBuilder, FormGroup } from '@angular/forms';
 import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { ModuleService } from '../module/module.service';
 import { AddressService } from '../services/address.service';
 
 @Component({
@@ -17,29 +18,33 @@ export class AddressAddEditFormComponent implements OnInit{
     private _fb: FormBuilder,
     private _addressService: AddressService,
     private _dialog: MatDialogRef<AddressAddEditFormComponent>,
+    private _moduleService: ModuleService,
     @Inject(MAT_DIALOG_DATA) public data : any
   ) {
     this.addressForm = this._fb.group({
-      firstName: '',
-      lastName: '',
-      contact: '',
+      first_name: '',
+      last_name: '',
+      phone_number: '',
     });
+    _dialog.disableClose = true
   }
+  
 
+    
   ngOnInit(): void {
       this.addressForm.patchValue(this.data)
   }
 
   //OnSubmit Function
   onSubmit() {
-    const firstName = this.addressForm.value.firstName;
-    const lastName = this.addressForm.value.lastName;
-    const contact = this.addressForm.value.contact;
+    const firstName = this.addressForm.value.first_name;
+    const lastName = this.addressForm.value.last_name;
+    const contact = this.addressForm.value.phone_number;
     if (firstName.length > 0 && lastName.length > 0 && contact.length > 0) {
       if (this.data){
         this._addressService.updateAddress(this.data.id,this.addressForm.value).subscribe({
           next: (value: any) => {
-            alert('Employee Updated Successfully');
+            this._moduleService.openSnackBar('Address Updated Succesfully', 'Okay')
             this._dialog.close(true);
           },
           error: console.log
@@ -47,7 +52,7 @@ export class AddressAddEditFormComponent implements OnInit{
       }else{
         this._addressService.addAddress(this.addressForm.value).subscribe({
           next: (value: any) => {
-            alert('Employee Added Successfully');
+            this._moduleService.openSnackBar('Address Added Succesfully', 'Okay')
             this._dialog.close(true);
           },
           error: console.log

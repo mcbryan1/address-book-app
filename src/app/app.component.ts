@@ -5,6 +5,7 @@ import { AddressService } from './services/address.service';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
+import { ModuleService } from './module/module.service';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -13,9 +14,9 @@ import { MatTableDataSource } from '@angular/material/table';
 export class AppComponent implements OnInit {
   // Table
   displayedColumns: string[] = [
-    'firstName',
-    'lastName',
-    'contact',
+    'first_name',
+    'last_name',
+    'phone_number',
     'action',
   ];
   dataSource!: MatTableDataSource<any>;
@@ -25,7 +26,8 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _alertDialog: MatDialog,
-    private _addressService: AddressService
+    private _addressService: AddressService,
+    private _moduleService: ModuleService
   ) {}
 
   // App Mounts
@@ -51,7 +53,6 @@ export class AppComponent implements OnInit {
   }
 
   // function to open the edit dialog
-
   openEditDilog(data: any) {
     const dialogRef = this._alertDialog.open(AddressAddEditFormComponent, {
       data,
@@ -84,7 +85,7 @@ export class AppComponent implements OnInit {
   deleteAddress(id: number) {
     this._addressService.deleteAddress(id).subscribe({
       next: (response) => {
-        alert('Address Deleted Succesfully');
+        this._moduleService.openSnackBar('Address Deleted Succesfully', 'Close')
         this.getAddressList();
       },
       error: console.log,

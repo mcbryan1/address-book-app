@@ -3,7 +3,7 @@
 }
 
 .address-body {
-  margin: 2rem 5rem;
+  margin: 2rem 20rem;
   display: flex;
   flex-direction: column;
   .card-container {
@@ -21,6 +21,10 @@
     margin-bottom: 1rem;
     align-self: flex-end;
   }
+}
+.header-container{
+  display: flex;
+  justify-content: space-between;
 }
 .actions {
   display: flex;

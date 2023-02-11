@@ -4,11 +4,11 @@
     <div class="row">
       <mat-form-field color="primary" appearance="outline">
         <mat-label> First Name </mat-label>
-        <input matInput placeholder="Ex. Solomon" formControlName="firstName" />
+        <input matInput placeholder="Ex. Solomon" formControlName="first_name" />
       </mat-form-field>
       <mat-form-field color="primary" appearance="outline">
         <mat-label> Last Name </mat-label>
-        <input matInput placeholder="Ex. McBryan" formControlName="lastName" />
+        <input matInput placeholder="Ex. McBryan" formControlName="last_name" />
       </mat-form-field>
     </div>
     <div class="row">
@@ -18,13 +18,13 @@
           matInput
           class="row-two"
           placeholder="Ex. 0592322565"
-          formControlName="contact"
+          formControlName="phone_number"
         />
       </mat-form-field>
     </div>
   </div>
   <div mat-dialog-actions class="actions">
-    <!-- <button mat-raised-button color="warn">Cancel</button> -->
+    <button mat-raised-button type='button' [mat-dialog-close]="false" color="warn">Cancel</button>
     <button mat-raised-button type="submit" color="primary">{{data ? "Update" : "Add"}}</button>
   </div>
 </form>
