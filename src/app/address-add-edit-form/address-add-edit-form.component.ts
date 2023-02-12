@@ -9,7 +9,7 @@ import { AddressService } from '../services/address.service';
   templateUrl: './address-add-edit-form.component.html',
   styleUrls: ['./address-add-edit-form.component.scss'],
 })
-export class AddressAddEditFormComponent implements OnInit{
+export class AddressAddEditFormComponent implements OnInit {
   // Define the form
   addressForm: FormGroup;
 
@@ -19,21 +19,23 @@ export class AddressAddEditFormComponent implements OnInit{
     private _addressService: AddressService,
     private _dialog: MatDialogRef<AddressAddEditFormComponent>,
     private _moduleService: ModuleService,
-    @Inject(MAT_DIALOG_DATA) public data : any
+    @Inject(MAT_DIALOG_DATA) public data: any
   ) {
     this.addressForm = this._fb.group({
       first_name: '',
       last_name: '',
       phone_number: '',
+      id:""
     });
-    _dialog.disableClose = true
+    _dialog.disableClose = true;
   }
-  
 
-    
   ngOnInit(): void {
-      this.addressForm.patchValue(this.data)
+    this.addressForm.patchValue(this.data)
+   
   }
+
+
 
   //OnSubmit Function
   onSubmit() {
@@ -41,25 +43,33 @@ export class AddressAddEditFormComponent implements OnInit{
     const lastName = this.addressForm.value.last_name;
     const contact = this.addressForm.value.phone_number;
     if (firstName.length > 0 && lastName.length > 0 && contact.length > 0) {
-      if (this.data){
-        this._addressService.updateAddress(this.data.id,this.addressForm.value).subscribe({
-          next: (value: any) => {
-            this._moduleService.openSnackBar('Address Updated Succesfully', 'Okay')
-            this._dialog.close(true);
-          },
-          error: console.log
-        });
-      }else{
+      if (this.data) {
+        this._addressService
+          .updateAddress(this.data.id, this.addressForm.value)
+          .subscribe({
+            next: (value: any) => {
+              this._moduleService.openSnackBar(
+                'Address Updated Succesfully',
+                'Okay'
+              );
+              this._dialog.close(true);
+            },
+            error: console.log,
+          });
+      } else {
         this._addressService.addAddress(this.addressForm.value).subscribe({
           next: (value: any) => {
-            this._moduleService.openSnackBar('Address Added Succesfully', 'Okay')
+            this._moduleService.openSnackBar(
+              'Address Added Succesfully',
+              'Okay'
+            );
             this._dialog.close(true);
           },
-          error: console.log
+          error: console.log,
         });
       }
-    } else{
-      alert('Field Cannot be empty')
+    } else {
+      this._moduleService.openSnackBar('Fields Cannot Be Empty', 'Okay');
     }
   }
 }

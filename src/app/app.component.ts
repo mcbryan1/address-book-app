@@ -6,6 +6,7 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
 import { ModuleService } from './module/module.service';
+import { PromptComponent } from './components/prompt/prompt.component';
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
@@ -26,8 +27,7 @@ export class AppComponent implements OnInit {
 
   constructor(
     private _alertDialog: MatDialog,
-    private _addressService: AddressService,
-    private _moduleService: ModuleService
+    private _addressService: AddressService
   ) {}
 
   // App Mounts
@@ -41,6 +41,22 @@ export class AppComponent implements OnInit {
     const dialogRef = this._alertDialog.open(AddressAddEditFormComponent);
 
     // Listen to after it is closed and call get address list
+    dialogRef.afterClosed().subscribe({
+      // it returns a bool
+      next: (value) => {
+        if (value) {
+          this.getAddressList();
+        }
+      },
+      error: console.log,
+    });
+  }
+
+  // funtion to open delete prompt dialog
+  openDeleteDialog(data: any) {
+    const dialogRef = this._alertDialog.open(PromptComponent, {
+      data,
+    });
     dialogRef.afterClosed().subscribe({
       // it returns a bool
       next: (value) => {
@@ -74,6 +90,8 @@ export class AppComponent implements OnInit {
     this._addressService.getAddress().subscribe({
       next: (response) => {
         this.dataSource = new MatTableDataSource(response);
+        this.isEmpty = response.length
+        // console.log(this.isEmpty)
         this.dataSource.sort = this.sort;
         this.dataSource.paginator = this.paginator;
       },
@@ -81,16 +99,7 @@ export class AppComponent implements OnInit {
     });
   }
 
-  // Method to delete an address
-  deleteAddress(id: number) {
-    this._addressService.deleteAddress(id).subscribe({
-      next: (response) => {
-        this._moduleService.openSnackBar('Address Deleted Succesfully', 'Close')
-        this.getAddressList();
-      },
-      error: console.log,
-    });
-  }
+  isEmpty? : any
 
   // Defining filter apply
   applyFilter(event: Event) {

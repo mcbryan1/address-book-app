@@ -20,6 +20,7 @@ import {MatSnackBarModule} from '@angular/material/snack-bar';
 
 //Component imports
 import { AddressAddEditFormComponent } from './address-add-edit-form/address-add-edit-form.component';
+import { PromptComponent } from './components/prompt/prompt.component';
 
 
 
@@ -27,6 +28,7 @@ import { AddressAddEditFormComponent } from './address-add-edit-form/address-add
   declarations: [
     AppComponent,
     AddressAddEditFormComponent,
+    PromptComponent,
     
   ],
   imports: [
